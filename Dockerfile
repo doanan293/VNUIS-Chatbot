@@ -3,34 +3,6 @@ FROM pytorch/pytorch:2.4.0-cuda12.4-cudnn9-runtime
 # Set the working directory
 WORKDIR /app
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        unixodbc \
-        unixodbc-dev \
-        freetds-dev \
-        freetds-bin \
-        tdsodbc \
-        ffmpeg \
-        git \
-        build-essential && \
-    rm -rf /var/lib/apt/lists/*
-
-# RUN apt-get update \
-#  && apt-get install unixodbc -y \
-#  && apt-get install unixodbc-dev -y \
-#  && apt-get install freetds-dev -y \
-#  && apt-get install freetds-bin -y \
-#  && apt-get install tdsodbc -y \
-#  && apt-get install ffmpeg -y \
-#  && apt-get install git -y \
-#  && apt-get install --reinstall build-essential -y
-
-# populate "ocbcinst.ini" as this is where ODBC driver config sits
-# Populate "odbcinst.ini" with FreeTDS driver configuration
-RUN echo "[FreeTDS]" >> /etc/odbcinst.ini && \
-    echo "Description = FreeTDS Driver" >> /etc/odbcinst.ini && \
-    echo "Driver = /usr/lib/x86_64-linux-gnu/odbc/libtdsodbc.so" >> /etc/odbcinst.ini && \
-    echo "Setup = /usr/lib/x86_64-linux-gnu/odbc/libtdsS.so" >> /etc/odbcinst.ini
 
 # Create a virtual environment
 RUN python3 -m venv /opt/venv
@@ -44,23 +16,12 @@ ENV LD_LIBRARY_PATH="/opt/venv/lib:$LD_LIBRARY_PATH"
 COPY requirements.txt /app
 # RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --no-cache-dir -r requirements.txt --use-deprecated=legacy-resolver
+RUN pip install --no-cache-dir -r requirements.txt 
+RUN pip install flash-attn --no-build-isolation
+COPY . /app
 
-COPY Model /app/Model
-COPY Data /app/Data
-COPY Embedding_Docs /app/Embedding_Docs
-COPY Load_Data_DB /app/Load_Data_DB
-COPY Processing_Data /app/Processing_Data
-COPY Gen_Data /app/Gen_Data
-COPY app.py /app
-COPY chatbot.py /app
-COPY Xu_ly_text.py /app/
-COPY .env /app
-
-
-CMD python3 Gen_Data/load_db_gendata.py && \
-    python3 Embedding_Docs/embedding_docs.py && \
-    python3 app.py
+CMD python3 Embedding_Docs/embedding_docs_pc.py && \
+    streamlit run chatbot_midterm.py
 
 # CMD python3 Load_Data_DB/load_data_from_db.py && \
 #     python3 Load_Data_DB/clean_data.py && \
