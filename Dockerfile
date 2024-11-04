@@ -23,13 +23,6 @@ COPY . /app
 CMD python3 Embedding_Docs/embedding_docs_pc.py && \
     streamlit run chatbot_midterm.py
 
-# CMD python3 Load_Data_DB/load_data_from_db.py && \
-#     python3 Load_Data_DB/clean_data.py && \
-#     python3 Gen_Data/gendata.py && \
-#     python3 Embedding_Docs/embedding_docs.py && \
-#     python3 app.py
-
-#    python3 Processing_Data/prepocessing_data.py && \
 #Tạo docker image: sudo docker build -t chatbot -f Dockerfile .
 #Chạy docker container với gpu: sudo docker run --gpus all -p 8000:8000 chatbot
 #Chạy docker container không gpu: sudo docker run -p 8000:8000 chatbot
