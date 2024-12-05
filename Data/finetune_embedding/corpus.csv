@@ -3072,11 +3072,6 @@ Cử nhân Quản trị Khách sạn, Thể thao và Du lịch: 254.240.000VNĐ 
 "Cử nhân ngành Marketing (Song bằng VNU-HELP): 322.000.000 VNĐ/4 năm học
 Cử nhân ngành Quản lý (Song bằng VNU-Keuka): 450.800.000 VNĐ/4 năm học",relevantdocs_id306
 "Cách tính điểm đánh giá bộ phận, điểm học phần theo thang điểm 10:
-
-Điểm đánh giá bộ phận và điểm thi kết thúc học phần được chấm theo thang điểm 10 (từ 0 đến 10), có lẻ đến một chữ số thập phân.
-
-Điểm học phần là tổng của điểm đánh giá bộ phận và điểm thi kết thúc học phần sau khi đã tính trọng số được quy định trong đề cương học phần và được làm tròn đến một chữ số thập phân, sau đó được chuyển thành điểm chữ.
-
 a) Loại đạt:
 
 9,0 – 10,0 tương ứng với A+
@@ -3091,8 +3086,6 @@ b) Loại không đạt:
 
 Dưới 4,0 tương ứng với F",relevantdocs_id307
 "Xếp loại học lực theo thang điểm 4 (GPA):
-
-Loại học lực là căn cứ để xác định khối lượng học tập sinh viên được đăng ký trong học kỳ kế tiếp. Trường hợp loại học lực của sinh viên được xác định vào thời điểm sau khi sinh viên đã đăng ký học phần, sinh viên phải rút bớt học phần trong giới hạn khối lượng quy định.
 
 Sau mỗi học kỳ, căn cứ vào điểm trung bình chung học kỳ, học lực của sinh viên được xếp thành các loại sau:
 
@@ -3523,3 +3516,24 @@ Ca 1: Tiết: 1 - 3, Bắt đầu từ 7h kết thúc vào 9h40
 Ca 2: Tiết 4 - 6, Bắt đầu từ 9h50 kết thúc vào 12h30
 Ca 3: Tiết 7 - 9, Bắt đầu từ 13h kết thúc vào 15h40
 Ca 4: Tiết 10 - 12, Bắt đầu từ 15h50 kết thúc vào 18h30",relevantdocs_id396
+"Câu hỏi: Bạn làm có thể làm được những gì?
+Trả lời: Tôi có thể hỗ trợ bạn giải đáp những thắc mắc liên quan đến Trường Quốc Tế - Đại học Quốc gia Hà Nội",relevantdocs_id397
+"Câu hỏi: GPA bao nhiêu thì đạt học kỳ xuất sắc:
+Trả lời: Đạt học kỳ xuất sắc khi điểm trung bình chung học kỳ (GPA) từ 3,60 đến 4,00",relevantdocs_id398
+"Câu hỏi: GPA bao nhiêu thì đạt học kỳ giỏi?
+Trả lời: Đạt học kỳ giỏi khi điểm trung bình chung học kỳ (GPA) từ 3,20 đến 3,59",relevantdocs_id399
+"Câu hỏi: GPA bao nhiêu thì đạt học kỳ khá? 
+Trả lời: Đạt học kỳ khá khi điểm trung bình chung học kỳ (GPA) từ 2,50 đến 3,19",relevantdocs_id400
+"Câu hỏi: GPA bao nhiêu thì đạt học kỳ trung bình? 
+Trả lời: Đạt học kỳ trung bình khi điểm trung bình chung học kỳ (GPA) từ 2,00 đến 2,49",relevantdocs_id401
+"Câu hỏi: GPA bao nhiêu thì đạt học kỳ yếu? 
+Trả lời: Đạt học kỳ yếu khi điểm trung bình chung học kỳ (GPA) đạt dưới 2,00 nhưng chưa thuộc trường hợp bị buộc thôi học.",relevantdocs_id402
+"Bao nhiêu điểm thì đạt A+?  9,0 – 10,0 tương ứng với A+ theo thang điểm 10 ",relevantdocs_id403
+"Bao nhiêu điểm thì đạt A? 8,5 – 8,9 tương ứng với A  theo thang điểm 10",relevantdocs_id404
+"Bao nhiêu điểm thì đạt B+? 8,0 – 8,4 tương ứng với B+ theo thang điểm 10",relevantdocs_id405
+"Bao nhiêu điểm thì đạt B? 7,0 – 7,9 tương ứng với B theo thang điểm 10",relevantdocs_id406
+"Bao nhiêu điểm thì đạt C+? 6,5 – 6,9 tương ứng với C+ theo thang điểm 10",relevantdocs_id407
+"Bao nhiêu điểm thì đạt C? 5,5 – 6,4 tương ứng với C theo thang điểm 10",relevantdocs_id408
+"Bao nhiêu điểm thì đạt D+? 5,0 – 5,4 tương ứng với D+ theo thang điểm 10",relevantdocs_id409
+"Bao nhiêu điểm thì đạt D? 4,0 – 4,9 tương ứng với D theo thang điểm 10",relevantdocs_id410
+Bao nhiêu điểm thì đạt F? Dưới 4 tương ứng với F theo thang điểm 10,relevantdocs_id411

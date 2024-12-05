@@ -31,7 +31,7 @@ load_dotenv()
 device = "cuda" if torch.cuda.is_available() else "cpu"
 logging.info(f"Using {device}")
 # device = "cpu"
-model_path = "./Model/vnuis_embedding_bge"
+model_path = "./Model/vnuis_embedding_bge_final"
 embedding_model = SentenceTransformer(
     model_name_or_path=model_path,
     device=device,
