@@ -184,8 +184,8 @@ vixtts_model = load_model_tts(
 reference_audio = os.getenv("PROJECTCB1_REFERENCE_AUDIO")  # Mẫu giọng nói
 
 # Load model STT nguyenvulebinh/wav2vec2-base-vietnamese-250h
-stt_model_path = os.getenv("PROJECTCB1_STT_MODEL")
-processor, stt_model = load_model_stt(stt_model_path=stt_model_path)
+# stt_model_path = os.getenv("PROJECTCB1_STT_MODEL")
+# processor, stt_model = load_model_stt(stt_model_path=stt_model_path)
 
 # Load LLM
 llm_path = os.getenv("PROJECTCB1_LLM_MODEL")

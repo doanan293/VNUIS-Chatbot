@@ -167,6 +167,8 @@ def load_model_tts(xtts_checkpoint, xtts_config, xtts_vocab):
     )
     if torch.cuda.is_available():
         XTTS_MODEL.cuda()
+        
+    XTTS_MODEL.eval()
     return XTTS_MODEL
 
 
@@ -234,16 +236,17 @@ embeddings, pages_and_chunks = load_embeddings(
     embeddings_path=embeddings_path, device=device
 )
 
-# Load model TTS capleaf/viXTTS
-tts_model_path = os.getenv("PROJECTCB1_TTS_MODEL")
-tts_model = load_model_tts(
-    xtts_checkpoint=f"{tts_model_path}/model.pth",
-    xtts_config=f"{tts_model_path}/config.json",
-    xtts_vocab=f"{tts_model_path}/vocab.json",
-)
+# # Load model TTS capleaf/viXTTS
+# tts_model_path = os.getenv("PROJECTCB1_TTS_MODEL")
+# tts_model = load_model_tts(
+#     xtts_checkpoint=f"{tts_model_path}/model.pth",
+#     xtts_config=f"{tts_model_path}/config.json",
+#     xtts_vocab=f"{tts_model_path}/vocab.json",
+# )
 
-# Load reference audio for tts
-reference_audio = os.getenv("PROJECTCB1_REFERENCE_AUDIO")  # Mẫu giọng nói
+# logging.info("Done TTS")
+# # Load reference audio for tts
+# reference_audio = os.getenv("PROJECTCB1_REFERENCE_AUDIO")  # Mẫu giọng nói
 
 # Load model STT openai/whisper-large-v3-turbo
 stt_model_path = os.getenv("PROJECTCB1_STT_MODEL")
@@ -351,7 +354,7 @@ def retrieve_relevant_resources(
     print(scores)
 
     context_items = [pages_and_chunks[i] for i in indices]
-    results = [item["Final_Answer"] for item in context_items]
+    results = [item["Relevant docs"] for item in context_items]
 
     pairs = [[query, result] for result in results]
 
@@ -576,10 +579,10 @@ def ask(query: str) -> str:
         },
     ]
     results = retrieve_relevant_resources(
-        query, number_result_embedding=20, number_result_reranking=5, threshold=-4
+        query, number_result_embedding=20, number_result_reranking=3, threshold=-4
     )
     if len(results) == 0:
-        web_search_result = web_searching(query=query)
+        web_search_result = web_searching(query=query, max_contents=1)
 
         prompt = f"""Hãy cho bản thân không gian để suy nghĩ bằng cách trích xuất các đoạn văn có liên quan từ ngữ cảnh dưới đây trước khi trả lời câu hỏi của người dùng.
 Sử dụng các đoạn ngữ cảnh sau để trả lời câu hỏi của người dùng:

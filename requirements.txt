@@ -15,7 +15,6 @@ datasets==3.0.1
 accelerate
 docx
 underthesea==6.8.4
-vinorm==2.0.7
 pydub==0.25.1
 deepspeed
 SQLAlchemy
@@ -28,8 +27,9 @@ fsspec==2024.6.1
 networkx==2.8.8
 openpyxl 
 smbprotocol
-
 -e git+https://github.com/thinhlpg/TTS.git@ff217b3f27b294de194cc59c5119d1e08b06413c#egg=TTS
+-e git+https://github.com/thgdnn/vietnamese-text-normalization-vcs.git#egg=vi_cleaner
+#--------------
 streamlit
 audio_recorder_streamlit
 streamlit_float

@@ -1,6 +1,6 @@
 import streamlit as st
-
-from chatbot_final import ask, run_stt, run_tts
+# run_tts
+from chatbot import ask, run_stt
 from audio_recorder_streamlit import audio_recorder
 from streamlit_float import *
 
@@ -36,7 +36,7 @@ with footer_container:
     if audio_bytes is not None:
         prompt = run_stt(audio_bytes)
 
-prompt = st.chat_input(placeholder="Mời bạn nhập câu hỏi...")
+# prompt = st.chat_input(placeholder="Mời bạn nhập câu hỏi...")
 
 if prompt is not None and prompt != "":
     with st.chat_message("user"):
