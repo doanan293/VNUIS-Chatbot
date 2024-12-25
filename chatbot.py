@@ -5,7 +5,7 @@ import os
 import re
 from io import BytesIO
 from threading import Thread
-
+import base64
 import librosa
 import numpy as np
 import pandas as pd
@@ -236,21 +236,21 @@ embeddings, pages_and_chunks = load_embeddings(
     embeddings_path=embeddings_path, device=device
 )
 
-# # Load model TTS capleaf/viXTTS
-# tts_model_path = os.getenv("PROJECTCB1_TTS_MODEL")
-# tts_model = load_model_tts(
-#     xtts_checkpoint=f"{tts_model_path}/model.pth",
-#     xtts_config=f"{tts_model_path}/config.json",
-#     xtts_vocab=f"{tts_model_path}/vocab.json",
-# )
+# Load model TTS capleaf/viXTTS
+tts_model_path = os.getenv("PROJECTCB1_TTS_MODEL")
+tts_model = load_model_tts(
+    xtts_checkpoint=f"{tts_model_path}/model.pth",
+    xtts_config=f"{tts_model_path}/config.json",
+    xtts_vocab=f"{tts_model_path}/vocab.json",
+)
 
-# logging.info("Done TTS")
-# # Load reference audio for tts
-# reference_audio = os.getenv("PROJECTCB1_REFERENCE_AUDIO")  # Mẫu giọng nói
+logging.info("Done TTS")
+# Load reference audio for tts
+reference_audio = os.getenv("PROJECTCB1_REFERENCE_AUDIO")  # Mẫu giọng nói
 
-# Load model STT openai/whisper-large-v3-turbo
-stt_model_path = os.getenv("PROJECTCB1_STT_MODEL")
-pipe, stt_model = load_model_stt(stt_model_path=stt_model_path)
+# # Load model STT openai/whisper-large-v3-turbo
+# stt_model_path = os.getenv("PROJECTCB1_STT_MODEL")
+# pipe, stt_model = load_model_stt(stt_model_path=stt_model_path)
 
 # Load LLM
 llm_path = os.getenv("PROJECTCB1_LLM_MODEL")
@@ -429,14 +429,23 @@ def run_tts(text, lang="vi"):
     if tts_model is None or not reference_audio:
         return "You need to run the previous step to load the model !!", None, None
 
+    if len(text) > 100:
+        gpt_cond_len_1=tts_model.config.gpt_cond_len
+        max_ref_length_1=tts_model.config.max_ref_len
+        sound_norm_refs_1=tts_model.config.sound_norm_refs
+    else:
+        gpt_cond_len_1=0
+        max_ref_length_1=1
+        sound_norm_refs_1=True
+        
     gpt_cond_latent, speaker_embedding = tts_model.get_conditioning_latents(
         audio_path=reference_audio,
-        # gpt_cond_len=tts_model.config.gpt_cond_len,
-        # max_ref_length=tts_model.config.max_ref_len,
-        # sound_norm_refs=tts_model.config.sound_norm_refs,
-        gpt_cond_len=0,
-        max_ref_length=1,
-        sound_norm_refs=True,
+        gpt_cond_len=gpt_cond_len_1,
+        max_ref_length=max_ref_length_1,
+        sound_norm_refs=sound_norm_refs_1,
+        # gpt_cond_len=0,
+        # max_ref_length=1,
+        # sound_norm_refs=True,
     )
 
     # Chuẩn hóa
@@ -475,11 +484,13 @@ def run_tts(text, lang="vi"):
         sf.write(buffer, out_wav, 24000, format="WAV")
         buffer.seek(0)
         wav_data = buffer.read()
+        audio_base64 = base64.b64encode(wav_data).decode("utf-8")
     except Exception as e:
         print(f"Error writing WAV file: {e}")
         return None
-
-    return wav_data
+    # return wav_data
+    logging.info("Done run TTS")
+    return audio_base64
 
 
 # ---------------------------Web searching----------------------------
