@@ -1,5 +1,6 @@
 import streamlit as st
 import base64
+
 # from pyngrok import ngrok
 # run_tts
 from chatbot import ask, run_stt, run_tts
@@ -25,7 +26,7 @@ float_init()
 #         ngrok_auth_token = "2qTfDPgn368YBJYKTMLlcevGB2E_ZNNJ8jJNBkSSRwRxEEQa"  # Replace with your token
 #         if ngrok_auth_token != "2qTfDPgn368YBJYKTMLlcevGB2E_ZNNJ8jJNBkSSRwRxEEQa":
 #             ngrok.set_auth_token(ngrok_auth_token)
-        
+
 #         # Start Ngrok tunnel on the default Streamlit port 8501
 #         tunnel = ngrok.connect(8501, "http")
 #         st.session_state.ngrok_url = tunnel.public_url
@@ -37,15 +38,15 @@ float_init()
 # # Display the Ngrok URL in the sidebar for easy access
 # if "ngrok_url" in st.session_state:
 #     st.sidebar.success(f"🌐 **Public URL:** {st.session_state.ngrok_url}")
-    
-#-----------------------------------Done add Pyngrok----------------
+
+# -----------------------------------Done add Pyngrok----------------
 
 
 # Create footer container and add content
 footer_container = st.container()
 
 # Streamlit UI
-st.title("VNU-IS Chatbot")
+st.title("VNU-IS Virtual Assistant")
 
 
 # c = st.container()
@@ -69,6 +70,7 @@ with footer_container:
     )
     if audio_bytes is not None:
         prompt = run_stt(audio_bytes)
+        audio_bytes = None
 
 # prompt = st.chat_input(placeholder="Mời bạn nhập câu hỏi...")
 
@@ -80,11 +82,13 @@ if prompt is not None and prompt != "":
     with st.chat_message("assistant"):
         response = st.write_stream(ask(query=prompt))
         logging.info(response)
-            
+
     st.session_state.messages.append({"role": "assistant", "content": response})
+# Add a state variable to track audio processing
+
 
 # Handle Play Audio button click
-if len(st.session_state.messages) >= 1 :
+if len(st.session_state.messages) >= 1:
     if st.button("📢 Play Audio"):
         logging.info("Button clicked: Play Audio")
 
@@ -104,7 +108,7 @@ if len(st.session_state.messages) >= 1 :
                     # Decode the audio from base64
                     audio_bytes = base64.b64decode(audio_base64)
                     logging.info(f"Audio bytes length: {len(audio_bytes)}")
-                    
+
                     # # Ensure audio is not empty
                     # if len(audio_bytes) > 0:
                     #     # Save the audio bytes to a temporary file
@@ -112,8 +116,8 @@ if len(st.session_state.messages) >= 1 :
                     #     with open(temp_audio_file, "wb") as f:
                     #         f.write(audio_bytes)
 
-                        # Play the audio using st.audio and specify the correct format
-                    st.audio(audio_bytes, format="audio/wav", autoplay = True)
+                    # Play the audio using st.audio and specify the correct format
+                    st.audio(audio_bytes, format="audio/wav", autoplay=True)
                     # else:
                     #     st.error("Failed to generate valid audio data.")
                 else:

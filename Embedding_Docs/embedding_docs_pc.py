@@ -31,14 +31,14 @@ load_dotenv()
 device = "cuda" if torch.cuda.is_available() else "cpu"
 logging.info(f"Using {device}")
 # device = "cpu"
-model_path = "./Model/vnuis_embedding_bge_final"
+model_path = os.getenv("PROJECTCB1_EMBEDDING_MODEL")
 embedding_model = SentenceTransformer(
     model_name_or_path=model_path,
     device=device,
     # model_kwargs={"torch_dtype": "bfloat16"},
     trust_remote_code=True,
 )
-file_path = "./Data/finetune_embedding/corpus.csv"
+file_path = os.getenv("PROJECTCB1_DATA_DB")
 # Đọc chỉ riêng cột "Final_Answer" và ép kiểu thành chuỗi
 # df = pd.read_csv(file_path, usecols=["Question"], dtype={"Question": str})
 df = pd.read_csv(file_path, usecols=["Relevant docs"], dtype={"Relevant docs": str})
@@ -66,7 +66,7 @@ print(load_time)
 
 df["embedding"] = [json.dumps(embedding.tolist()) for embedding in embeddings]
 logging.info("Start saving to file")
-embeddings_df_save_path = "./Data/Embedding.csv"
+embeddings_df_save_path = os.getenv("PROJECTCB1_DATA_DB")
 df.to_csv(embeddings_df_save_path, index=False)
 logging.info("Saved_to file")
 

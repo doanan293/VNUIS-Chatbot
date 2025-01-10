@@ -33,6 +33,7 @@ smbprotocol
 streamlit
 audio_recorder_streamlit
 streamlit_float
+pyngrok
 #-----------------------------------------------------------
 # !pip install requests
 # !pip install beautifulsoup4
